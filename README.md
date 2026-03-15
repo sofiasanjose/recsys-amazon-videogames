@@ -86,7 +86,14 @@ cd recsys-amazon-videogames
 pip install -r requirements.txt
 ```
 
-Place dataset files in `data/raw/` then run notebooks in order.
+### Kaggle API Key (required for dataset download)
+
+The dataset is downloaded automatically via `kagglehub` when you run the notebook. You need a Kaggle account and API token:
+
+1. Go to [https://www.kaggle.com/settings](https://www.kaggle.com/settings) → **API** → **Create New Token**
+2. This downloads a `kaggle.json` file
+3. Move it to `~/.kaggle/kaggle.json`
+4. Run the notebook — the dataset downloads and caches automatically on first run
 
 ---
 
