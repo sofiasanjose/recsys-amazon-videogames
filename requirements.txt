@@ -1,0 +1,30 @@
+# Core
+numpy
+pandas
+scipy
+scikit-learn
+
+# Recommendation systems
+surprise
+implicit
+
+# NLP / Content-based
+nltk
+spacy
+transformers
+torch
+sentence-transformers
+
+# Evaluation & visualisation
+matplotlib
+seaborn
+plotly
+
+# Jupyter
+jupyter
+ipykernel
+ipywidgets
+
+# Utilities
+tqdm
+joblib
