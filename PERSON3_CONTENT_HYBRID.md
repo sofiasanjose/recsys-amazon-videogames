@@ -1,8 +1,8 @@
 # Person 3: Content-Based + Hybrid Recommenders
 
-This deliverable implements the full Person 3 scope in:
+This deliverable is implemented in:
 
-- `src/models/content_hybrid.py`
+- `notebooks/03_content_based_and_hybrid.ipynb`
 
 It expects Person 1's processed files in `data/processed/`:
 
@@ -20,10 +20,10 @@ It expects Person 1's processed files in `data/processed/`:
 2. **Hybrid recommender (weighted)**
    - Builds an item-item collaborative similarity from train interactions
    - Normalizes CF and content scores to [0, 1]
-   - Combines with weighted average (`alpha_cf`, default 0.6)
+   - Combines with weighted average (`ALPHA_CF`, default 0.6 in the notebook)
 
 3. **Hybrid recommender (switching)**
-   - If user has enough history (`min_history_for_cf`, default 5), uses CF-heavy weighted hybrid
+   - If user has enough history (`MIN_HISTORY_FOR_CF`, default 5), uses CF-heavy weighted hybrid
    - Otherwise falls back to content-based
 
 4. **Cold-start strategy**
@@ -33,26 +33,23 @@ It expects Person 1's processed files in `data/processed/`:
 
 5. **Evaluation + artifacts**
    - Metrics: `Precision@K`, `Recall@K`, `NDCG@K`, `MAP@K`, `Coverage`
-   - Saves:
-     - `models/person3_outputs/person3_model_results.csv`
-     - `models/person3_outputs/person3_sample_recommendations.csv`
+   - Saves under `models/person3_outputs/`:
+     - `person3_model_results.csv`
+     - `person3_sample_recommendations.csv`
 
 ## Run
 
-From repo root:
+1. Open Jupyter from the **repository root** (or from `notebooks/`; the notebook resolves `data/processed` automatically).
+2. Run all cells in `notebooks/03_content_based_and_hybrid.ipynb`.
 
-```bash
-python src/models/content_hybrid.py --processed-dir data/processed --output-dir models/person3_outputs
-```
+Tune in the config cell:
 
-Optional parameters:
-
-- `--k 10`
-- `--alpha-cf 0.6`
-- `--min-history-for-cf 5`
+- `K`
+- `ALPHA_CF`
+- `MIN_HISTORY_FOR_CF`
 
 ## Notes for team integration
 
-- This script does **not** use `test.csv`, matching your project rule.
+- This notebook does **not** use `test.csv`, matching your project rule.
 - Person 4 can use `person3_model_results.csv` for comparison tables.
-- If Person 2 exports stronger CF scores (e.g., SVD user-item predictions), you can replace the in-script item-CF block with those scores and keep the same hybrid interface.
+- If Person 2 exports stronger CF scores (e.g., SVD), you can replace the item–item CF block in the implementation cell with those scores and keep the same hybrid scoring interface.
