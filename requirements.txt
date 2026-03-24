@@ -24,6 +24,7 @@ plotly
 jupyter
 ipykernel
 ipywidgets
+nbconvert
 
 # Utilities
 tqdm

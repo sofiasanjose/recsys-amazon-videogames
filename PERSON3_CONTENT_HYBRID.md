@@ -2,13 +2,16 @@
 
 This deliverable is implemented in:
 
-- `notebooks/03_content_based_and_hybrid.ipynb`
+- `notebooks/03_content_based_and_hybrid.ipynb` (run all cells; pre-executed outputs may be committed for grading)
 
-It expects Person 1's processed files in `data/processed/`:
+**Data paths**
 
-- `train.csv`
-- `val.csv`
-- `metadata_clean.csv` (must include `item_id` and `content_text`)
+- **Primary:** Person 1 outputs in `data/processed/`: `train.csv`, `val.csv`, `metadata_clean.csv` (needs `item_id`, `content_text`; `title` recommended for readable examples).
+- **Fallback demo:** If `data/processed/train.csv` is missing (e.g. fresh clone), the notebook automatically uses **`data/person3_demo/`** tiny CSVs so the notebook still runs end-to-end. Replace with real `data/processed/` for your final report numbers.
+
+**Regenerate notebook from script (optional):** `python scripts/rebuild_person3_notebook.py`
+
+**Execute notebook headlessly (optional):** `python -m nbconvert --to notebook --execute notebooks/03_content_based_and_hybrid.ipynb --inplace`
 
 ## What is implemented
 
