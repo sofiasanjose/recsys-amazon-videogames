@@ -12,26 +12,30 @@ It expects Person 1's processed files in `data/processed/`:
 
 ## What is implemented
 
-1. **Content-based recommender (TF-IDF)**
-   - Text cleaning: lowercase, punctuation removal, stopword removal
-   - Feature engineering: TF-IDF with unigrams + bigrams
-   - Recommendation logic: average similarity from user's seen items to candidate items
+1. **Metadata review**
+   - Notebook cell loads `metadata_clean.csv`, lists columns, shows samples, and summarizes `content_text` length / empties.
 
-2. **Hybrid recommender (weighted)**
+2. **Content-based recommender (TF-IDF or bag-of-words)**
+   - Text cleaning: lowercase, punctuation removal, stopword removal
+   - Optional **WordNet lemmatization** (NLTK) for a stronger lexical baseline
+   - Feature engineering: **TF-IDF** (default) or **CountVectorizer** BoW, unigrams + bigrams
+   - Recommendation logic: average similarity from items the user saw in train to candidate items
+
+3. **Hybrid recommender (weighted)**
    - Builds an item-item collaborative similarity from train interactions
    - Normalizes CF and content scores to [0, 1]
    - Combines with weighted average (`ALPHA_CF`, default 0.6 in the notebook)
 
-3. **Hybrid recommender (switching)**
+4. **Hybrid recommender (switching)**
    - If user has enough history (`MIN_HISTORY_FOR_CF`, default 5), uses CF-heavy weighted hybrid
    - Otherwise falls back to content-based
 
-4. **Cold-start strategy**
+5. **Cold-start strategy**
    - New users (no history): fallback to popularity-based unseen items
    - Users with sparse history: switching hybrid routes to content-based
    - New items: content-based can still recommend if metadata exists in `metadata_clean.csv`
 
-5. **Evaluation + artifacts**
+6. **Evaluation + artifacts**
    - Metrics: `Precision@K`, `Recall@K`, `NDCG@K`, `MAP@K`, `Coverage`
    - Saves under `models/person3_outputs/`:
      - `person3_model_results.csv`
@@ -44,9 +48,11 @@ It expects Person 1's processed files in `data/processed/`:
 
 Tune in the config cell:
 
-- `K`
-- `ALPHA_CF`
-- `MIN_HISTORY_FOR_CF`
+- `K`, `ALPHA_CF`, `MIN_HISTORY_FOR_CF`
+- `CONTENT_VECTORIZER`: `"tfidf"` or `"bow"` (primary pipeline; hybrids use this content space)
+- `USE_LEMMATIZATION`: apply lemmas before vectorization (TF-IDF or BoW)
+- `MAX_FEATURES`, `NGRAM_RANGE`
+- `RUN_CONTENT_BOW_BASELINE` / `RUN_CONTENT_LEMMA_BASELINE`: optional extra content-only rows in the results table for comparison (more compute)
 
 ## Notes for team integration
 
